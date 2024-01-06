@@ -29,11 +29,11 @@ export default function Board({ xIsNext, squares, onPlay }) {
         return calculateWinner(squares);
     }, [squares]);
 
-    const handleClick = (i) => {
+    const handleClick = (i, info) => {
         if (squares[i] || winnerObj) return;
         const nextSquares = squares.slice();
         nextSquares[i] = xIsNext ? "X" : "O";
-        onPlay(nextSquares);
+        onPlay(nextSquares, info);
     };
 
     const status = useMemo(() => {
@@ -63,7 +63,7 @@ export default function Board({ xIsNext, squares, onPlay }) {
                                             : false
                                     }
                                     key={j}
-                                    onSquareClick={() => handleClick(j + 3 * i)}
+                                    onSquareClick={() => handleClick(j + 3 * i, { row: i, col: j })}
                                     value={squares[j + 3 * i]}
                                 />
                             ))}
